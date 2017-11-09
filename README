@@ -1,0 +1,14 @@
+This library has a collection of metric files which can be used with GSL to solve geodesic equations.  
+
+The file solve_geodesics.cc implements the rkp8d (dormand prince method) to solve the geodesic equations for 
+an infalling observer.  Feel free to take or modify this code for whichever purposes you require.
+
+To compile you need to have gsl installed and type the command
+
+gcc -static solve_geodesics.cc -lgsl -lgslcblas -lm
+
+or
+
+gcc solve_geodesics.cc -lgsl -lgslcblas -lm
+
+depending on your gsl installation.
