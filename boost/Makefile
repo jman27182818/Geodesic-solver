@@ -12,9 +12,11 @@ DEPS := $(OBJS:.o=.d)
 
 INC_DIRS := $(shell find $(INC_DIR) -type d)
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+SYS_INC_FLAGS := -I /usr/include -I /usr/include/boost
+
 
 CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
-CXXFLAGS ?= -lpthread -std=c++17
+CXXFLAGS ?= $(SYS_INC_FLAGS) -lpthread -std=c++17
 LDFLAGS ?= -lstdc++
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)

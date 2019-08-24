@@ -19,7 +19,7 @@ There are is also a Vierbein class which can be passed to the geodesicSolver, es
 
 ## Optimal accuracy and runtime
 
-In order to get the most optimal runtime, supplying the inverse metric and the derivative of the inverse metrix `d g_ij / d x_k` as a function of the form `std::function<double(int i, int j, int k std::vector<double> coords)>` leads to the most optimal results.
+In order to get the most optimal runtime, supplying the inverse metric and the derivative of the inverse metrix `d g^ij / d x^k` as a function of the form `std::function<double(int i, int j, int k std::vector<double> coords)>` leads to the most optimal results.
 
 Supplying only the metric to the constructor will requre the computation of numerical derivatives via finite differences.
 

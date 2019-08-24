@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <vector>
 #include "metric.h"
-#include <boost/graph/adjacency_list.hpp>
 
 int main(int argc, char const *argv[])
 {

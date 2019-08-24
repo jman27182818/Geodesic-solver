@@ -2,6 +2,8 @@
 #include <vector>
 #include <memory>
 #include <functional>
+#include <iostream>
+#include <boost/math/tools/numerical_differentiation.hpp>
 
 
 namespace metric
@@ -19,10 +21,6 @@ namespace metric
         matrixFunction _invMetric;
         /// Derivative of the metrix matrix
         derivativeMatrixFunction _invDervMetric;
-        /// Total dimension of the system
-        int _dimensions;
-        /// boolean value designating if the metric is diagonal
-        bool isDiagonal = false;
 
     public:
         /// Metric constructor with the metric function provided
@@ -39,6 +37,14 @@ namespace metric
         metric(functionVector diagonalMetric );
 
         ~metric();
+
+        /// boolean value designating if the metric is diagonal
+        bool isDiagonal = false;
+
+        /// Total dimension of the system
+        int Dimension;
+
+
     };
             
 } // namespace metric
