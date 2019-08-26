@@ -8,7 +8,15 @@ metric::metric::metric(int DIM,matrixFunction metFunc) : Dimension(DIM),_metric(
         std::cout << "Unable to invert for dimensions less than six";
         throw;
     }
-    //TODO: all the inversions haha
+    switch (DIM)
+    {
+    case 2:
+        
+        break;
+    
+    default:
+        break;
+    }
 }
 
 
@@ -62,4 +70,27 @@ metric::metric::metric(functionVector diagonalMetric)
         }, coords[k]);
     };
     
+}
+
+
+metric::metric::metric(functionVector diagonalMetric , std::function<double(int, int, std::vector<double>)> invDerFunctions)
+{
+    isDiagonal = true;
+    Dimension = diagonalMetric.size();
+    _metric = [diagonalMetric](int i, int j, std::vector<double> coords) 
+    { 
+        if(i != j) return 0.0;        
+        return diagonalMetric[i](coords);
+    };
+    _invMetric = [diagonalMetric](int i, int j, std::vector<double> coords) 
+    {
+        if(i != j) return 0.0;
+        return 1.0 / (diagonalMetric[i](coords)); //FIXME: divide by zero check
+    };
+    _invDervMetric = [invDerFunctions](int i, int j, int k, std::vector<double> coords)
+    {
+        if(i != j) return 0.0;
+        return invDerFunctions(i,k,coords);
+    };
+
 }

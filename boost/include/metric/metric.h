@@ -36,6 +36,11 @@ namespace metric
         /// Diagonal metric constructor
         metric(functionVector diagonalMetric );
 
+
+        /// Diagonal metric constructor with derivatives passed in as dg^ii(x)/dx^k = invDerFunctions(i,k,x)
+        metric(functionVector diagonalMetric , std::function<double(int, int, std::vector<double>)> invDerFunctions);
+
+
         ~metric();
 
         /// boolean value designating if the metric is diagonal
