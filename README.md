@@ -1,11 +1,11 @@
 # Introduction
 
 
-A set of C/C++ utilities to solve geodesics using boost or GSL in metric spaces of dimension 6 or less.  The reason for the dimension truncation is because explicit analytical inversions for the metric are used.  The goal is to allow compactified dimensions sometime soon.
+A set of C/C++ utilities to solve geodesics using boost or GSL in metric spaces.  If no inverse metric is provided the maximum dimension servicible is 5.  The reason for the dimension truncation is because explicit analytical inversions for the metric are used.  The goal is to allow compactified dimensions sometime soon.
 
 # Boost
 
-The more developed geodesic solver tool uses Boost and multi-threading wherever it is beneficial to do so.  The main classes in use are **metric** and **geodesicSolver**.  The **metric** class takes in C++ function objects which represent the metric, inverse metric, and inverse metric derivative (see the doxygen documentation for their use).  The **geodesicSolver** solves the geodesic system given a metric class and initial velocities and positions.
+The more developed geodesic solver tool uses Boost.  The main classes in use are **metric** and **geodesicSolver**.  The **metric** class takes in C++ function objects which represent the metric, inverse metric, and inverse metric derivative (see the doxygen documentation for their use).  The **geodesicSolver** solves the geodesic system given a metric class and initial velocities and positions.
 
 The functions the metric class uses are of the form
 

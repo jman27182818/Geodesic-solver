@@ -11,10 +11,26 @@ metric::metric::metric(int DIM,matrixFunction metFunc) : Dimension(DIM),_metric(
     switch (DIM)
     {
     case 2:
-        
+        _invMetric = [metFunc](int i, int j, std::vector<double> coords) 
+        {
+            auto factor = 1.0 / (-1.0* metFunc(0,1,coords) * metFunc(0,1,coords) + metFunc(0,0,coords) * metFunc(1,1,coords));
+            if(i == j)
+            {
+                return metFunc(i+1 % 2, j + 1 % 2 , coords) * factor;
+            }
+            return -1.0 * metFunc(i,j,coords) * factor;
+        };
         break;
-    
+    case 3:
+        _invMetric = [metFunc](int i, int j, std::vector<double> coords)
+        {
+            
+            return 0.0;
+        };
+        break;    
     default:
+        std::cout << "invalid dimension" << std::endl; // FIXME: better error handling
+        exit(-1);
         break;
     }
 }
@@ -92,5 +108,8 @@ metric::metric::metric(functionVector diagonalMetric , std::function<double(int,
         if(i != j) return 0.0;
         return invDerFunctions(i,k,coords);
     };
+
+    //TODO: overload the operators for the metric function 
+    //TODO: make a struct for covariant vectors
 
 }

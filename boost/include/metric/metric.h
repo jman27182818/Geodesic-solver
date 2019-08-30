@@ -22,6 +22,9 @@ namespace metric
         /// Derivative of the metrix matrix
         derivativeMatrixFunction _invDervMetric;
 
+        /// Total dimension of the system
+        int Dimension;
+
     public:
         /// Metric constructor with the metric function provided
         metric(int DIM, matrixFunction metFunc);
@@ -46,8 +49,11 @@ namespace metric
         /// boolean value designating if the metric is diagonal
         bool isDiagonal = false;
 
-        /// Total dimension of the system
-        int Dimension;
+        int getDimension() const { return Dimension; }
+
+        std::vector<double> raise(const std::vector<double>& coVector) const;
+        std::vector<double> lower(const std::vector<double>& contraVector) const;
+        
 
 
     };
