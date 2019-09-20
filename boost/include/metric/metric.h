@@ -10,7 +10,16 @@ namespace metric
 {
     typedef std::function<double(int , int,std::vector<double>)> matrixFunction;
     typedef std::function<double(int, int, int, std::vector<double>)> derivativeMatrixFunction;
+
+    // TODO: move these vectors to their own classes
     typedef std::vector< std::function<double(std::vector<double>)> > functionVector;
+    typedef std::vector<double> contravariantVector;
+    
+    /// A class inhereting from a vector double, used to have a different vector type
+    class covariantVector : std::vector<double>
+    {
+
+    };
 
     class metric
     {
@@ -50,12 +59,26 @@ namespace metric
         bool isDiagonal = false;
 
         int getDimension() const { return Dimension; }
+        /// raise a covariant vector
+        contravariantVector raise(const covariantVector& coVector) const;
 
-        std::vector<double> raise(const std::vector<double>& coVector) const;
-        std::vector<double> lower(const std::vector<double>& contraVector) const;
+        /// lower a contravariantVector
+        covariantVector lower(const contravariantVector& contraVector) const;
+
+        friend contravariantVector operator*(const metric& Metric,const covariantVector& vector);
+        friend contravariantVector operator*(const covariantVector& vector,const metric& Metric);
+
+
+        friend covariantVector operator*(const metric& Metric,const contravariantVector& vector);
+        friend covariantVector operator*(const contravariantVector& vector,const metric& Metric);
         
+        double operator()(int i, int j, contravariantVector coords) const {return _metric(i,j,coords);};//FIXME: add range check here
+
+        double g(int i,int j, contravariantVector coords) const {return _metric(i,j,coords);};//FIXME: add range check here
+        double invg(int i, int j, contravariantVector coords) const {return _invMetric(i,j,coords);}; //FIXME: see above
 
 
     };
+    //TODO default minkowski constructor
             
 } // namespace metric

@@ -110,6 +110,36 @@ metric::metric::metric(functionVector diagonalMetric , std::function<double(int,
     };
 
     //TODO: overload the operators for the metric function 
-    //TODO: make a struct for covariant vectors
+    
+}
+
+
+metric::contravariantVector operator*(const metric::metric& Metric,const metric::covariantVector& vector)
+{
+    return Metric.raise(vector);
+}
+metric::contravariantVector operator*(const metric::covariantVector& vector,const metric::metric& Metric)
+{
+    return Metric.raise(vector);
+}
+metric::covariantVector operator*(const metric::metric& Metric,const metric::contravariantVector& vector)
+{
+    return Metric.lower(vector);
+}
+metric::covariantVector operator*(const metric::contravariantVector& vector,const metric::metric& Metric)
+{
+    return Metric.lower(vector);
+}
+
+
+metric::contravariantVector metric::metric::raise(const covariantVector& coVector) const
+{
+    contravariantVector result;
+    result.reserve(Dimension);//TODO this has to be a vector field
+    return result;
+}
+
+metric::covariantVector metric::metric::lower(const contravariantVector& coVector) const
+{
 
 }
