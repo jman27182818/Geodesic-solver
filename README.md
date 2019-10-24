@@ -1,7 +1,7 @@
 # Introduction
 
 
-A set of C/C++ utilities to solve geodesics using boost or GSL in metric spaces.  If no inverse metric is provided the maximum dimension servicible is 5.  The reason for the dimension truncation is because explicit analytical inversions for the metric are used.  The goal is to allow compactified dimensions sometime soon.
+A set of C/C++ utilities to solve geodesics using boost or GSL in metric spaces.
 
 # Boost
 
@@ -15,11 +15,9 @@ std::function<double(int , int,std::vector<double>)>
 Where the first two integers are the standard metric indeces `g_ij` and `std::vector<double>` is the coordinates in increasing order.
 
 
-There are is also a Vierbein class which can be passed to the geodesicSolver, essentially the geodesic solver constructs the metric from the vierbein and performs the same computation as it would if the metric class were passed in.
-
 ## Optimal accuracy and runtime
 
-In order to get the most optimal runtime, supplying the inverse metric and the derivative of the inverse metrix `d g^ij / d x^k` as a function of the form `std::function<double(int i, int j, int k std::vector<double> coords)>` leads to the most optimal results.
+In order to get the most optimal runtime, supplying the inverse metric and the derivative of the inverse metrix `d g^ij / d x^k` as a function of the form `std::function<double(int i, int j, int k std::vector<double> coords)>` is needed.
 
 Supplying only the metric to the constructor will requre the computation of numerical derivatives via finite differences.
 

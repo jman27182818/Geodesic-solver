@@ -11,7 +11,7 @@ namespace metric
     typedef std::function<double(int , int,std::vector<double>)> matrixFunction;
     typedef std::function<double(int, int, int, std::vector<double>)> derivativeMatrixFunction;
 
-    // TODO: move these vectors to their own classes
+    // TODO: move these vectors to their own classes and extend their operations
     typedef std::vector< std::function<double(std::vector<double>)> > functionVector;
     typedef std::vector<double> contravariantVector;
     
@@ -35,8 +35,6 @@ namespace metric
         int Dimension;
 
     public:
-        /// Metric constructor with the metric function provided
-        metric(int DIM, matrixFunction metFunc);
 
         /// Metric constructor with metric and inverse metric provided
         metric(int DIM, matrixFunction metFunc,matrixFunction invMetFunc);
@@ -45,32 +43,15 @@ namespace metric
         metric(int DIM, matrixFunction metFunc,matrixFunction invMetFunc,derivativeMatrixFunction invDervMet);
 
 
-        /// Diagonal metric constructor
-        metric(functionVector diagonalMetric );
-
-
-        /// Diagonal metric constructor with derivatives passed in as dg^ii(x)/dx^k = invDerFunctions(i,k,x)
-        metric(functionVector diagonalMetric , std::function<double(int, int, std::vector<double>)> invDerFunctions);
-
-
         ~metric();
+
+        /// If input metrix is diagonal, call this function for optimization
+        void setDiagonal() { isDiagonal = true;};
 
         /// boolean value designating if the metric is diagonal
         bool isDiagonal = false;
 
         int getDimension() const { return Dimension; }
-        /// raise a covariant vector
-        contravariantVector raise(const covariantVector& coVector) const;
-
-        /// lower a contravariantVector
-        covariantVector lower(const contravariantVector& contraVector) const;
-
-        friend contravariantVector operator*(const metric& Metric,const covariantVector& vector);
-        friend contravariantVector operator*(const covariantVector& vector,const metric& Metric);
-
-
-        friend covariantVector operator*(const metric& Metric,const contravariantVector& vector);
-        friend covariantVector operator*(const contravariantVector& vector,const metric& Metric);
         
         double operator()(int i, int j, contravariantVector coords) const {return _metric(i,j,coords);};//FIXME: add range check here
 
@@ -79,6 +60,5 @@ namespace metric
 
 
     };
-    //TODO default minkowski constructor
             
 } // namespace metric
